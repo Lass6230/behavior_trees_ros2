@@ -45,15 +45,9 @@ public:
      <BehaviorTree>
         <Sequence>
             <PrintValue message="start"/>
-            <GripperAction name="gripper_open" open="true"/>
+            <GripperAction name="gripper_close" open="false"/>
             <PrintValue message="sleep completed"/>
-            <GripperAction name="gripper_open" open="false"/>
-            // <Fallback>
-            //     <Timeout msec="1500">
-            //        <SleepAction name="sleepB" action_name="sleep_service" msec="2000"/>
-            //     </Timeout>
-            //     <PrintValue message="sleep aborted"/>
-            // </Fallback>
+            <GripperAction name="gripper_open" open="true"/>
         </Sequence>
      </BehaviorTree>
  </root>
@@ -62,7 +56,7 @@ public:
 int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
-  auto nh = std::make_shared<rclcpp::Node>("sleep_client");
+  auto nh = std::make_shared<rclcpp::Node>("test_client");
 
   BehaviorTreeFactory factory;
 
@@ -70,11 +64,14 @@ int main(int argc, char **argv)
   
   RosNodeParams params_gripper;
   params_gripper.nh = nh;
+  params_gripper.server_timeout = std::chrono::milliseconds(2000);
+  params_gripper.wait_for_server_timeout = std::chrono::milliseconds(1000);
   params_gripper.default_port_value = "gripper_service";
   factory.registerNodeType<GripperAction>("GripperAction",params_gripper);
 
   RosNodeParams params_gripper_joint;
   params_gripper_joint.nh = nh;
+
   params_gripper_joint.default_port_value = "gripper_joint_service";
   factory.registerNodeType<GripperJointAction>("GripperJointAction",params_gripper_joint);
 
@@ -89,10 +86,12 @@ int main(int argc, char **argv)
 #endif
 
   auto tree = factory.createTreeFromText(xml_text);
-
-  for(int i=0; i<5; i++){
-    tree.tickWhileRunning();
-  }
+  tree.tickWhileRunning();
+  // tree.tickOnce();
+  // for(int i=0; i<5; i++){
+  //   tree.tickWhileRunning();
+  //   // tree.tickOnce();
+  // }
 
   return 0;
 }
