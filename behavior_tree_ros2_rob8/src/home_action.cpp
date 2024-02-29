@@ -16,17 +16,17 @@ NodeStatus HomeAction::onResultReceived(const RosActionNode::WrappedResult &wr)
   return wr.result->done ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
 }
 
-NodeStatus SleepAction::onFailure(ActionNodeErrorCode error)
+NodeStatus HomeAction::onFailure(ActionNodeErrorCode error)
 {
   RCLCPP_ERROR( node_->get_logger(), "%s: onFailure with error: %s", name().c_str(), toStr(error) );
   return NodeStatus::FAILURE;
 }
 
-void SleepAction::onHalt()
+void HomeAction::onHalt()
 {
   RCLCPP_INFO( node_->get_logger(), "%s: onHalt", name().c_str() );
 }
 
 // Plugin registration.
 // The class SleepAction will self register with name  "Sleep".
-CreateRosNodePlugin(SleepAction, "Sleep");
+CreateRosNodePlugin(HomeAction, "Home");
