@@ -22,6 +22,7 @@ set(THIS_PACKAGE_DEPS
 add_executable(test_client 
     src/sleep_action.cpp
     src/gripper_behaviors.cpp
+    src/arm_behaviors.cpp
     src/test_client.cpp)
     
   ament_target_dependencies(test_client ${THIS_PACKAGE_DEPS})
