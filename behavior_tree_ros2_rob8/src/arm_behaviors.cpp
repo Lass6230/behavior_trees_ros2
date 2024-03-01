@@ -1,4 +1,5 @@
-#include "home_action.hpp"
+// #include "home_action.hpp"
+#include "behaviortree_ros2/bt_action_node.hpp"
 #include "behaviortree_ros2/plugins.hpp"
 #include "behavior_tree_ros2_actions/action/arm_move_joints.hpp"
 #include "behavior_tree_ros2_actions/action/arm_move_pose.hpp"
@@ -58,11 +59,17 @@ public:
 
   static BT::PortsList providedPorts()
   {
-    return providedBasicPorts({InputPort<std::vector<double>>("pose")});
+    return providedBasicPorts({InputPort<std::string>("pose")});
   }
 
   bool setGoal(Goal& goal) override{
-    auto pose = getInput<std::vector<double>>("pose");
+    // auto pose = getInput<std::vector<double>>("pose");
+    
+    
+    // goal.pose = pose.value();
+    //  auto pose = getInput<std::string>("pose");
+    //  goal.pose = pose.value();
+     auto pose = getInput<std::string>("pose");
     goal.pose = pose.value();
     
     

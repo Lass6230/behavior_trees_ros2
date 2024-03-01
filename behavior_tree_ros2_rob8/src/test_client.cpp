@@ -2,6 +2,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/executors.hpp"
 #include "gripper_behaviors.cpp"
+#include "arm_behaviors.cpp"
 #include "behaviortree_ros2/plugins.hpp"
 
 #ifndef USE_SLEEP_PLUGIN
@@ -45,9 +46,13 @@ public:
      <BehaviorTree>
         <Sequence>
             <PrintValue message="start"/>
+            <ArmMovePoseAction name="arm" pose="0.0,-0.6,0.4,0.0,0.0,-1.529"/>
             <GripperAction name="gripper_close" open="false"/>
+            <ArmMovePoseAction name="arm" pose="-0.1,-0.6,0.4,0.0,0.0,-1.529"/>
             <PrintValue message="sleep completed"/>
             <GripperAction name="gripper_open" open="true"/>
+            <ArmMovePoseAction name="arm" pose="0.1,-0.6,0.4,0.0,0.0,-1.529"/>
+            <GripperAction name="gripper_close" open="false"/>
         </Sequence>
      </BehaviorTree>
  </root>
@@ -68,6 +73,13 @@ int main(int argc, char **argv)
   params_gripper.wait_for_server_timeout = std::chrono::milliseconds(1000);
   params_gripper.default_port_value = "gripper_service";
   factory.registerNodeType<GripperAction>("GripperAction",params_gripper);
+
+  RosNodeParams params_arm_mode_pose;
+  params_arm_mode_pose.nh = nh;
+  params_arm_mode_pose.server_timeout = std::chrono::milliseconds(2000);
+  params_arm_mode_pose.wait_for_server_timeout = std::chrono::milliseconds(1000);
+  params_arm_mode_pose.default_port_value = "arm_move_pose_service";
+  factory.registerNodeType<ArmMovePoseAction>("ArmMovePoseAction",params_arm_mode_pose);
 
   RosNodeParams params_gripper_joint;
   params_gripper_joint.nh = nh;

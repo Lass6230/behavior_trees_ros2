@@ -31,16 +31,16 @@ add_library(sleep2_plugin SHARED src/sleep_action.cpp)
 target_compile_definitions(sleep2_plugin PRIVATE  BT_PLUGIN_EXPORT )
 ament_target_dependencies(sleep2_plugin ${THIS_PACKAGE_DEPS})
 
-add_library(home_plugin SHARED src/home_action.cpp)
-target_compile_definitions(home_plugin PRIVATE  BT_PLUGIN_EXPORT )
-ament_target_dependencies(home_plugin ${THIS_PACKAGE_DEPS})
+# add_library(home_plugin SHARED src/home_action.cpp)
+# target_compile_definitions(home_plugin PRIVATE  BT_PLUGIN_EXPORT )
+# ament_target_dependencies(home_plugin ${THIS_PACKAGE_DEPS})
 
 install(TARGETS
   test_client
   # sleep_client_dyn
   
   # sleep_server
-  home_plugin
+  # home_plugin
   sleep2_plugin
   # subscriber_test
   DESTINATION lib/${PROJECT_NAME}
