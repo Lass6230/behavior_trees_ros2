@@ -46,13 +46,19 @@ public:
      <BehaviorTree>
         <Sequence>
             <PrintValue message="start"/>
-            <ArmMovePoseAction name="arm" pose="0.0,-0.6,0.4,0.0,0.0,-1.529"/>
-            <GripperAction name="gripper_close" open="false"/>
-            <ArmMovePoseAction name="arm" pose="-0.1,-0.6,0.4,0.0,0.0,-1.529"/>
-            <PrintValue message="sleep completed"/>
             <GripperAction name="gripper_open" open="true"/>
+            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
+            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.1,0.0,1.529,0.0"/>
+            <GripperAction name="gripper_close" open="false"/>
+            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
+            <ArmMovePoseAction name="arm" pose="-0.1,-0.6,0.4,0.0,0.0,-1.529"/>
+            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
+            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.1,0.0,1.529,0.0"/>
+            <GripperAction name="gripper_open" open="true"/>
+            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
             <ArmMovePoseAction name="arm" pose="0.1,-0.6,0.4,0.0,0.0,-1.529"/>
             <GripperAction name="gripper_close" open="false"/>
+            <PrintValue message="sleep completed"/>
         </Sequence>
      </BehaviorTree>
  </root>
