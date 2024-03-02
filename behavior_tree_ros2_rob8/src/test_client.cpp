@@ -4,6 +4,8 @@
 #include "gripper_behaviors.cpp"
 #include "arm_behaviors.cpp"
 #include "behaviortree_ros2/plugins.hpp"
+#include "yaml-cpp/yaml.h"
+#include "ament_index_cpp/get_package_share_directory.hpp"
 
 #ifndef USE_SLEEP_PLUGIN
 #include "sleep_action.hpp"
@@ -38,31 +40,38 @@ public:
   }
 };
 
+
+
+
 //-----------------------------------------------------
 
+
+const std::string default_bt_xml_file = 
+    ament_index_cpp::get_package_share_directory("behavior_tree_ros2_rob8") + "/bt_xml/test.xml";
+
   // Simple tree, used to execute once each action.
-  static const char* xml_text = R"(
- <root BTCPP_format="4">
-     <BehaviorTree>
-        <Sequence>
-            <PrintValue message="start"/>
-            <GripperAction name="gripper_open" open="true"/>
-            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
-            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.1,0.0,1.529,0.0"/>
-            <GripperAction name="gripper_close" open="false"/>
-            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
-            <ArmMovePoseAction name="arm" pose="-0.1,-0.6,0.4,0.0,0.0,-1.529"/>
-            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
-            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.1,0.0,1.529,0.0"/>
-            <GripperAction name="gripper_open" open="true"/>
-            <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
-            <ArmMovePoseAction name="arm" pose="0.1,-0.6,0.4,0.0,0.0,-1.529"/>
-            <GripperAction name="gripper_close" open="false"/>
-            <PrintValue message="sleep completed"/>
-        </Sequence>
-     </BehaviorTree>
- </root>
- )";
+//   static const char* xml_text = R"(
+//  <root BTCPP_format="4">
+//      <BehaviorTree>
+//         <Sequence>
+//             <PrintValue message="start"/>
+//             <GripperAction name="gripper_open" open="true"/>
+//             <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
+//             <ArmMovePoseAction name="arm" pose="0.45,0.1,0.1,0.0,1.529,0.0"/>
+//             <GripperAction name="gripper_close" open="false"/>
+//             <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
+//             <ArmMovePoseAction name="arm" pose="-0.1,-0.6,0.4,0.0,0.0,-1.529"/>
+//             <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
+//             <ArmMovePoseAction name="arm" pose="0.45,0.1,0.1,0.0,1.529,0.0"/>
+//             <GripperAction name="gripper_open" open="true"/>
+//             <ArmMovePoseAction name="arm" pose="0.45,0.1,0.165,0.0,1.529,0.0"/>
+//             <ArmMovePoseAction name="arm" pose="0.1,-0.6,0.4,0.0,0.0,-1.529"/>
+//             <GripperAction name="gripper_close" open="false"/>
+//             <PrintValue message="sleep completed"/>
+//         </Sequence>
+//      </BehaviorTree>
+//  </root>
+//  )";
 
 int main(int argc, char **argv)
 {
@@ -103,7 +112,10 @@ int main(int argc, char **argv)
   factory.registerNodeType<SleepAction>("SleepAction", params);
 #endif
 
-  auto tree = factory.createTreeFromText(xml_text);
+  nh->declare_parameter<std::string>("tree_xml_file", default_bt_xml_file);
+  std::string tree_xml_file_ = nh->get_parameter("tree_xml_file").as_string();
+  auto tree = factory.createTreeFromFile(tree_xml_file_);
+  // auto tree = factory.createTreeFromText(xml_text);
   tree.tickWhileRunning();
   // tree.tickOnce();
   // for(int i=0; i<5; i++){
