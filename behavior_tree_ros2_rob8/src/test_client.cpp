@@ -104,6 +104,8 @@ int main(int argc, char **argv)
 
   RosNodeParams params;
   params.nh = nh;
+  params.server_timeout = std::chrono::milliseconds(2000);
+  params.wait_for_server_timeout = std::chrono::milliseconds(1000);
   params.default_port_value = "sleep_service";
 
 #ifdef USE_SLEEP_PLUGIN
@@ -116,12 +118,12 @@ int main(int argc, char **argv)
   std::string tree_xml_file_ = nh->get_parameter("tree_xml_file").as_string();
   auto tree = factory.createTreeFromFile(tree_xml_file_);
   // auto tree = factory.createTreeFromText(xml_text);
-  tree.tickWhileRunning();
+  // tree.tickWhileRunning();
   // tree.tickOnce();
-  // for(int i=0; i<5; i++){
-  //   tree.tickWhileRunning();
-  //   // tree.tickOnce();
-  // }
+  for(int i=0; i<5; i++){
+    tree.tickWhileRunning();
+    // tree.tickOnce();
+  }
 
   return 0;
 }
