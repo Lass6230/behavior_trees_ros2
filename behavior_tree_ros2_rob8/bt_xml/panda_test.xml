@@ -2,20 +2,20 @@
      <BehaviorTree>
         <Sequence>
             <PrintValue message="start"/>
-            <GripperAction name="gripper_open" open="true"/>
-            <ArmMovePoseAction name="arm" pose="0.623,-0.1,0.281,-3.14,0.0,0.0"/>
             <SleepAction name="sleepA" msec="200"/>
-            <ArmMovePoseAction name="arm" pose="0.623,-0.1,0.281,-3.14,0.0,0.0"/>
+            <ArmMovePoseAction name="arm" pose="0.623,-0.2,0.281,-3.142,0.0,0.0"/>
+            <SleepAction name="sleepA" msec="200"/>
+            <ArmMovePoseAction name="arm" pose="0.623,-0.1,0.281,-3.142,0.0,0.0"/>
             <SleepAction name="sleepA" msec="200"/>
             <GripperAction name="gripper_close" open="false"/>
-            <ArmMovePoseAction name="arm" pose="0.623,-0.2,0.281,-3.14,0.0,0.0"/>
+            <ArmMovePoseAction name="arm" pose="0.623,-0.2,0.281,-3.142,0.0,0.0"/>
             <SleepAction name="sleepA" msec="200"/>
-            <ArmMovePoseAction name="arm" pose="0.623,-0.2,0.181,-3.14,0.0,0.0"/>
+            <ArmMovePoseAction name="arm" pose="0.623,-0.2,0.381,-3.142,0.0,0.0"/>
             <SleepAction name="sleepA" msec="200"/>
-            <ArmMovePoseAction name="arm" pose="0.623,-0.1,0.181,-3.14,0.0,0.0"/>
+            <ArmMovePoseAction name="arm" pose="0.623,-0.1,0.381,-3.142,0.0,0.0"/>
             <SleepAction name="sleepA" msec="200"/>
-            <ArmMovePoseAction name="arm" pose="0.623,-0.1,0.281,-3.14,0.0,0.0"/>
-            <GripperAction name="gripper_open" open="true"/>
+            <ArmMovePoseAction name="arm" pose="0.623,-0.1,0.281,-3.142,0.0,0.0"/>
+            <SleepAction name="sleepA" msec="200"/>
         </Sequence>
      </BehaviorTree>
  </root>
