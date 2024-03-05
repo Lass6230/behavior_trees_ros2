@@ -134,14 +134,16 @@ int main(int argc, char **argv)
             << xml_models
             << "--------------------------------\n";
 
+  factory.registerBehaviorTreeFromFile(tree_xml_file_);
+  auto tree = factory.createTree("MainTree");
 
-  auto tree = factory.createTreeFromFile(tree_xml_file_);
   // std::cout << BT::writeTreeToXML(tree);
   std::cout << "----------- XML file  ----------\n"
             << BT::WriteTreeToXML(tree, false, false)
             << "--------------------------------\n";
 
-  
+  BT::Groot2Publisher publisher(tree);
+
   // auto tree = factory.createTreeFromText(xml_text);
   tree.tickWhileRunning();
   // tree.tickOnce();
@@ -149,6 +151,12 @@ int main(int argc, char **argv)
   //   tree.tickWhileRunning();
   //   // tree.tickOnce();
   // }
+
+    // let's visualize some information about the current state of the blackboards.
+  std::cout << "\n------ First BB ------" << std::endl;
+  tree.subtrees[0]->blackboard->debugMessage();
+  std::cout << "\n------ Second BB------" << std::endl;
+  tree.subtrees[1]->blackboard->debugMessage();
 
   return 0;
 }

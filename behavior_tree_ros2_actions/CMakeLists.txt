@@ -23,6 +23,7 @@ find_package(ament_cmake REQUIRED)
 
 set(THIS_PACKAGE_DEPS 
     behaviortree_ros2
+    geometry_msgs
     std_msgs )
 
 
@@ -41,6 +42,7 @@ set(action_files
     # "action/LocalPlanner.action"
     # "action/GlobalPlanner.action"
     # "action/HybridPlanner.action"
+    
   )
   
   rosidl_generate_interfaces(${PROJECT_NAME}

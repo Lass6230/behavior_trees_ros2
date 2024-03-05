@@ -60,6 +60,7 @@ public:
   static BT::PortsList providedPorts()
   {
     return providedBasicPorts({InputPort<std::string>("pose")});
+    // return providedBasicPorts({InputPort<std::vector<double>>("pose")});
   }
 
   bool setGoal(Goal& goal) override{
@@ -67,9 +68,9 @@ public:
     
     
     // goal.pose = pose.value();
-    //  auto pose = getInput<std::string>("pose");
-    //  goal.pose = pose.value();
      auto pose = getInput<std::string>("pose");
+    //  goal.pose = pose.value();
+    //  auto pose = getInput<std::string>("pose");
     goal.pose = pose.value();
     
     
