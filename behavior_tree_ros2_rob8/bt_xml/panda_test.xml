@@ -1,5 +1,5 @@
  <root BTCPP_format="4">
-     <BehaviorTree>
+     <BehaviorTree ID="GraspObjectPanda">
         <Sequence>
             <PrintValue message="start"/>
             <SleepAction name="sleepA" msec="200"/>
@@ -18,4 +18,27 @@
             <SleepAction name="sleepA" msec="200"/>
         </Sequence>
      </BehaviorTree>
+     <TreeNodesModel>
+        <Action ID="ArmMovePoseAction">
+            <input_port name="pose" type="std::string"/>
+            <input_port name="action_name" type="std::string" default="__default__placeholder__">Action server name</input_port>
+        </Action>
+        <Action ID="GripperAction">
+            <input_port name="open" type="unsigned int"/>
+            <input_port name="action_name" type="std::string" default="__default__placeholder__">Action server name</input_port>
+        </Action>
+        <Action ID="GripperJointAction">
+            <input_port name="joint_2" type="double"/>
+            <input_port name="joint_1" type="double"/>
+            <input_port name="action_name" type="std::string" default="__default__placeholder__">Action server name</input_port>
+        </Action>
+        <Action ID="PrintValue">
+            <input_port name="message" type="std::string"/>
+        </Action>
+        <Action ID="SleepAction">
+            <input_port name="msec" type="unsigned int"/>
+            <input_port name="action_name" type="std::string" default="__default__placeholder__">Action server name</input_port>
+        </Action>
+    </TreeNodesModel>
+
  </root>

@@ -10,11 +10,13 @@ find_package(ament_cmake REQUIRED)
 find_package(behaviortree_ros2 REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(behavior_tree_ros2_actions REQUIRED)
+find_package(behaviortree_cpp REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 set(THIS_PACKAGE_DEPS 
     behaviortree_ros2
+    behaviortree_cpp
     std_msgs
     behavior_tree_ros2_actions )
 
