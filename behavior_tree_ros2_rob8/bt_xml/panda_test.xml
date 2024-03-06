@@ -35,6 +35,9 @@
 
   <BehaviorTree ID="MainTree">
     <Sequence>
+        <Script code="addtwoint:= 1;1 "/>
+        <Script code="addtwoint:= addtwoint[0]+1;addtwoint[1]+1 "/>
+        <PrintValue message="{addtwoint}"/>
       <Script code="in_name:= 'john' "/>
       <SubTree ID="MySub" sub_in_name="{in_name}"
                           sub_out_state="{out_state}"/>
