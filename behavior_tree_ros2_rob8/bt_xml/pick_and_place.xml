@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+  <BehaviorTree ID="pick_and_place">
+    <Repeat num_cycles="1">
+      <Sequence>
+        <ArmMovePoseAction pose="0.064,-0.518,0.361,-3.078,1.554,1.638"
+                           action_name="__default__placeholder__"/>
+        <SSG48GripperMoveAction width="0.044"
+                                speed="0.04"
+                                action_name="__default__placeholder__"/>
+        <ArmMovePoseAction pose="-0.217, -0.220, 0.152,-3.140, -0.048, 1.571"
+                           action_name="__default__placeholder__"/>
+        <ArmMovePoseAction pose="-0.217, -0.220, 0.015,-3.140, -0.048, 1.571"
+                           action_name="__default__placeholder__"/>
+        <Sleep msec="600"/>
+        <SSG48GripperGraspAction width="0.01"
+                                 speed="0.02"
+                                 force="25"
+                                 epsilon="0.01"
+                                 action_name="__default__placeholder__"/>
+        <ArmMovePoseAction pose="-0.217, -0.220, 0.152,-3.140, -0.048, 1.571"
+                           action_name="__default__placeholder__"/>
+        <Sleep msec="600"/>
+        <ArmMovePoseAction pose="0.064,-0.518,0.361,-3.078,1.554,1.638"
+                           action_name="__default__placeholder__"/>
+        <ArmMovePoseAction pose="-0.217, -0.220, 0.152,3.096, 0.001, 1.570"
+                           action_name="__default__placeholder__"/>
+        <ArmMovePoseAction pose="-0.217, -0.220, 0.015,-3.140, -0.048, 1.571"
+                           action_name="__default__placeholder__"/>
+        <SSG48GripperMoveAction width="0.044"
+                                speed="0.03"
+                                action_name="__default__placeholder__"/>
+        <ArmMovePoseAction pose="-0.217, -0.220, 0.152,-3.140, -0.048, 1.571"
+                           action_name="__default__placeholder__"/>
+      </Sequence>
+    </Repeat>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="ArmMovePoseAction">
+      <input_port name="pose"
+                  type="std::string"/>
+      <input_port name="action_name"
+                  default="__default__placeholder__"
+                  type="std::string">Action server name</input_port>
+    </Action>
+    <Action ID="SSG48GripperGraspAction">
+      <input_port name="width"
+                  type="double"/>
+      <input_port name="speed"
+                  type="double"/>
+      <input_port name="force"
+                  type="double"/>
+      <input_port name="epsilon"
+                  type="double"/>
+      <input_port name="action_name"
+                  default="__default__placeholder__"
+                  type="std::string">Action server name</input_port>
+    </Action>
+    <Action ID="SSG48GripperMoveAction">
+      <input_port name="width"
+                  type="double"/>
+      <input_port name="speed"
+                  type="double"/>
+      <input_port name="action_name"
+                  default="__default__placeholder__"
+                  type="std::string">Action server name</input_port>
+    </Action>
+  </TreeNodesModel>
+
+</root>

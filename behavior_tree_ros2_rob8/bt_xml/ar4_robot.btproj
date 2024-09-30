@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" project_name="ar4_robot">
+    <include path="pick_and_place.xml"/>
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="ArmArrayToPoseAction">
+            <input_port name="array" type="std::vector&lt;double, std::allocator&lt;double&gt; &gt;"/>
+            <output_port name="pose" type="geometry_msgs::msg::PoseStamped_&lt;std::allocator&lt;void&gt; &gt;"/>
+        </Action>
+        <Action ID="ArmMovePlizLinPoseMsgAction">
+            <input_port name="pose" type="geometry_msgs::msg::PoseStamped_&lt;std::allocator&lt;void&gt; &gt;"/>
+            <input_port name="speed" type="double"/>
+            <input_port name="accel" type="double"/>
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+        <Action ID="ArmMovePoseAction">
+            <input_port name="pose" type="std::string"/>
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+        <Action ID="GripperAction">
+            <input_port name="open" type="unsigned int"/>
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+        <Action ID="GripperJointAction">
+            <input_port name="joint_2" type="double"/>
+            <input_port name="joint_1" type="double"/>
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+        <Action ID="PrintValue">
+            <input_port name="message" type="std::string"/>
+        </Action>
+        <Action ID="SSG48GripperGraspAction">
+            <input_port name="width" type="double"/>
+            <input_port name="speed" type="double"/>
+            <input_port name="force" type="double"/>
+            <input_port name="epsilon" type="double"/>
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+        <Action ID="SSG48GripperHomingAction">
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+        <Action ID="SSG48GripperMoveAction">
+            <input_port name="width" type="double"/>
+            <input_port name="speed" type="double"/>
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+        <Action ID="SleepAction">
+            <input_port name="msec" type="unsigned int"/>
+            <input_port name="action_name" default="__default__placeholder__" type="std::string">Action server name</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

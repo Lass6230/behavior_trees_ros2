@@ -1,6 +1,17 @@
 #include "behaviortree_ros2/bt_action_node.hpp"
 #include "behaviortree_cpp/bt_factory.h"
 
+<<<<<<< HEAD
+=======
+#include "behaviortree_cpp/loggers/bt_file_logger_v2.h"
+
+#include "behaviortree_cpp/bt_factory.h"
+#include "behaviortree_cpp/loggers/groot2_publisher.h"
+#include "behaviortree_cpp/loggers/bt_sqlite_logger.h"
+#include "behaviortree_cpp/xml_parsing.h"
+#include "behaviortree_cpp/json_export.h"
+
+>>>>>>> 732acf3 (a)
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/executors.hpp"
 
@@ -18,6 +29,8 @@
 #include "behaviortree_cpp/loggers/bt_sqlite_logger.h"
 #include "behaviortree_cpp/xml_parsing.h"
 #include "behaviortree_cpp/json_export.h"
+
+#include "ssg48_gripper_behaviors.cpp"
 
 #ifndef USE_SLEEP_PLUGIN
 #include "sleep_action.hpp"
@@ -93,7 +106,28 @@ int main(int argc, char **argv)
   BehaviorTreeFactory factory;
 
   factory.registerNodeType<PrintValue>("PrintValue");
+
+  RosNodeParams params_ssg48_gripper_grasp;
+  params_ssg48_gripper_grasp.nh = nh;
+  params_ssg48_gripper_grasp.server_timeout = std::chrono::milliseconds(2000);
+  params_ssg48_gripper_grasp.wait_for_server_timeout = std::chrono::milliseconds(1000);
+  params_ssg48_gripper_grasp.default_port_value = "ssg48_gripper/grasp";
+  factory.registerNodeType<SSG48GripperGraspAction>("SSG48GripperGraspAction",params_ssg48_gripper_grasp);
   
+  RosNodeParams params_ssg48_gripper_move;
+  params_ssg48_gripper_move.nh = nh;
+  params_ssg48_gripper_move.server_timeout = std::chrono::milliseconds(2000);
+  params_ssg48_gripper_move.wait_for_server_timeout = std::chrono::milliseconds(1000);
+  params_ssg48_gripper_move.default_port_value = "ssg48_gripper/move";
+  factory.registerNodeType<SSG48GripperMoveAction>("SSG48GripperMoveAction",params_ssg48_gripper_move);
+
+  RosNodeParams params_ssg48_gripper_homing;
+  params_ssg48_gripper_homing.nh = nh;
+  params_ssg48_gripper_homing.server_timeout = std::chrono::milliseconds(2000);
+  params_ssg48_gripper_homing.wait_for_server_timeout = std::chrono::milliseconds(1000);
+  params_ssg48_gripper_homing.default_port_value = "ssg48_gripper/homing";
+  factory.registerNodeType<SSG48GripperHomingAction>("SSG48GripperHomingAction",params_ssg48_gripper_homing);
+
   RosNodeParams params_gripper;
   params_gripper.nh = nh;
   params_gripper.server_timeout = std::chrono::milliseconds(2000);
@@ -108,6 +142,14 @@ int main(int argc, char **argv)
   params_arm_mode_pose.default_port_value = "arm_move_pose_service";
   factory.registerNodeType<ArmMovePoseAction>("ArmMovePoseAction",params_arm_mode_pose);
 
+  RosNodeParams params_arm_move_pliz_lin_pose_msg;
+  params_arm_move_pliz_lin_pose_msg.nh = nh;
+  params_arm_move_pliz_lin_pose_msg.default_port_value = "arm_move_pliz_lin_pose_msg_service";
+  params_arm_move_pliz_lin_pose_msg.server_timeout = std::chrono::milliseconds(2000);
+  params_arm_move_pliz_lin_pose_msg.wait_for_server_timeout = std::chrono::milliseconds(1000);
+  factory.registerNodeType<ArmMovePlizLinPoseMsgAction>("ArmMovePlizLinPoseMsgAction",params_arm_move_pliz_lin_pose_msg);
+
+
   RosNodeParams params_gripper_joint;
   params_gripper_joint.nh = nh;
 
@@ -120,20 +162,27 @@ int main(int argc, char **argv)
   params.wait_for_server_timeout = std::chrono::milliseconds(1000);
   params.default_port_value = "sleep_service";
 
+  factory.registerNodeType<ArmArrayToPoseAction>("ArmArrayToPoseAction");
+
 #ifdef USE_SLEEP_PLUGIN
   RegisterRosNode(factory, "../lib/libsleep_action_plugin.so", params);
 #else
   factory.registerNodeType<SleepAction>("SleepAction", params);
 #endif
 
+<<<<<<< HEAD
   nh->declare_parameter<std::string>("tree_xml_file", default_bt_xml_file);
   std::string tree_xml_file_ = nh->get_parameter("tree_xml_file").as_string();
 
   std::string xml_models = BT::writeTreeNodesModelXML(factory);
+=======
+  std::string xml_models = writeTreeNodesModelXML(factory);
+>>>>>>> 732acf3 (a)
   std::cout << "----------- XML file  ----------\n"
             << xml_models
             << "--------------------------------\n";
 
+<<<<<<< HEAD
   factory.registerBehaviorTreeFromFile(tree_xml_file_);
   auto tree = factory.createTree("MainTree");
 
@@ -144,6 +193,10 @@ int main(int argc, char **argv)
 
   BT::Groot2Publisher publisher(tree);
 
+=======
+  factory.registerBehaviorTreeFromFile(ament_index_cpp::get_package_share_directory("behavior_tree_ros2_rob8") + "/bt_xml/pick_and_place.xml");
+  auto tree = factory.createTree("pick_and_place");
+>>>>>>> 732acf3 (a)
   // auto tree = factory.createTreeFromText(xml_text);
   tree.tickWhileRunning();
   // tree.tickOnce();
@@ -151,12 +204,15 @@ int main(int argc, char **argv)
   //   tree.tickWhileRunning();
   //   // tree.tickOnce();
   // }
+<<<<<<< HEAD
 
     // let's visualize some information about the current state of the blackboards.
   std::cout << "\n------ First BB ------" << std::endl;
   tree.subtrees[0]->blackboard->debugMessage();
   std::cout << "\n------ Second BB------" << std::endl;
   tree.subtrees[1]->blackboard->debugMessage();
+=======
+>>>>>>> 732acf3 (a)
 
   return 0;
 }

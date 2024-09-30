@@ -11,6 +11,12 @@ find_package(behaviortree_ros2 REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(behavior_tree_ros2_actions REQUIRED)
 find_package(behaviortree_cpp REQUIRED)
+find_package(ssg48_gripper_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(moveit REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(moveit_ros_planning_interface REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -18,14 +24,22 @@ set(THIS_PACKAGE_DEPS
     behaviortree_ros2
     behaviortree_cpp
     std_msgs
+    geometry_msgs
+    tf2_geometry_msgs
+    tf2
+    moveit
+    moveit_ros_planning_interface
+    ssg48_gripper_msgs
     behavior_tree_ros2_actions )
 
 
 add_executable(test_client 
     src/sleep_action.cpp
     src/gripper_behaviors.cpp
+    src/ssg48_gripper_behaviors.cpp
     src/arm_behaviors.cpp
-    src/test_client.cpp)
+    src/test_client.cpp
+    src/moveit_behaviors.cpp)
     
   ament_target_dependencies(test_client ${THIS_PACKAGE_DEPS})
 
